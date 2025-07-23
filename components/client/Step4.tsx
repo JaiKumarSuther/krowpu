@@ -7,7 +7,7 @@ const Step4 = () => {
   const [fixedPrice, setFixedPrice] = useState("");
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 text-black">
       <div className="flex flex-col lg:flex-row gap-12">
         <div className="flex-1 space-y-4">
           <div className="flex items-center gap-3 mb-6">

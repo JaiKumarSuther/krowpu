@@ -20,7 +20,7 @@ const ImpactfulEventsBanner = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8">
+    <section className="max-w-7xl bg-white mx-auto px-6 md:px-12 pt-8">
       <div className="flex flex-col lg:flex-row bg-[#165c4d] rounded-xl overflow-hidden">
         {/* Left Side Content */}
         <div className="flex-1 p-10 text-white flex flex-col justify-center">

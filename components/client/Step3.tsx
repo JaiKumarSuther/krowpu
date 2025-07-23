@@ -94,19 +94,19 @@ const Step3 = () => {
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[hsl(160_84%_39%)] text-white text-sm font-bold">
               3
             </div>
-            <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase">
+            <span className="text-sm text-black font-medium text-muted-foreground tracking-wider uppercase">
               Event Post
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-snug tracking-tight">
+          <h2 className="text-3xl text-black lg:text-4xl font-bold text-foreground leading-snug tracking-tight">
             Next, estimate the
             <span className="text-[hsl(160_84%_39%)] block lg:inline lg:ml-2">
               scope of your work
             </span>
           </h2>
 
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-lg text-black text-muted-foreground leading-relaxed">
             Consider the size of your project and the time it will take. This
             helps set clear expectations for participants.
           </p>
@@ -115,7 +115,7 @@ const Step3 = () => {
         <div className="flex-1 space-y-8">
           {/* Project Scope */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">
+            <h3 className="text-lg text-black font-semibold text-foreground">
               Project Scope
             </h3>
             <div className="space-y-3">
@@ -125,7 +125,7 @@ const Step3 = () => {
                   <label
                     key={scope.name}
                     className={`
-                      group cursor-pointer block p-4 rounded-lg border transition-all duration-200
+                      group cursor-pointer text-black block p-4 rounded-lg border transition-all duration-200
                       ${
                         selectedScope === scope.name
                           ? "border-[hsl(160_84%_39%)] bg-[hsl(160_60%_95%)] shadow-[0_0_0_2px_hsl(160_84%_39%/0.3)]"
@@ -180,17 +180,17 @@ const Step3 = () => {
 
           {/* Project Duration */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">
+            <h3 className="text-lg text-black font-semibold text-foreground">
               Project Duration
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-3 text-black">
               {durations.map((duration) => {
                 const IconComponent = duration.icon;
                 return (
                   <label
                     key={duration.name}
                     className={`
-                      group cursor-pointer block p-4 rounded-lg border transition-all duration-200
+                      group cursor-pointer text-black block p-4 rounded-lg border transition-all duration-200
                       ${
                         selectedDuration === duration.name
                           ? "border-[hsl(160_84%_39%)] bg-[hsl(160_84%_39%)]-light shadow-[0_0_0_2px_hsl(160_84%_39%/0.3)]"
@@ -239,7 +239,7 @@ const Step3 = () => {
 
           {/* Experience Level */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">
+            <h3 className="text-lg text-black font-semibold text-foreground">
               Experience Level
             </h3>
             <div className="space-y-3">
@@ -249,7 +249,7 @@ const Step3 = () => {
                   <label
                     key={experience.name}
                     className={`
-                      group cursor-pointer block p-4 rounded-lg border transition-all duration-200
+                      group cursor-pointer text-black block p-4 rounded-lg border transition-all duration-200
                       ${
                         selectedExperience === experience.name
                           ? "border-[hsl(160_84%_39%)] bg-[hsl(160_84%_39%)]-light shadow-[0_0_0_2px_hsl(160_84%_39%/0.3)]"

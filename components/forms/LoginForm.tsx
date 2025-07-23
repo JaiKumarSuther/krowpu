@@ -59,7 +59,7 @@ const LoginForm = () => {
             <button
               key={idx}
               type="button"
-              className="flex-1 border border-[hsl(214.3_31.8%_91.4%)] rounded-lg px-4 py-3 text-sm font-medium bg-[hsl(0_0%_100%)] hover:bg-[hsl(210_40%_96.1%)] transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)]"
+              className="flex-1 border text-black border-[hsl(214.3_31.8%_91.4%)] rounded-lg px-4 py-3 text-sm font-medium bg-[hsl(0_0%_100%)] hover:bg-[hsl(210_40%_96.1%)] transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)]"
             >
               {btn.icon}
               <span className="hidden sm:inline">{btn.text}</span>

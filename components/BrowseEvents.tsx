@@ -16,7 +16,7 @@ const BrowseEvents = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8">
+    <section className="max-w-7xl bg-white mx-auto px-6 md:px-12 pt-8">
       <div className="text-center mb-12">
         <div className="inline-flex items-center gap-2 bg-[hsl(140_30%_95%)] px-4 py-2 rounded-full mb-4">
           <TrendingUp size={16} className="text-[hsl(140_75%_20%)]" />

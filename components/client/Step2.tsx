@@ -117,7 +117,7 @@ const Step2 = () => {
                     key={skill}
                     onClick={() => toggleSkill(skill)}
                     disabled={selectedSkills.length >= 5}
-                    className="inline-flex items-center gap-2 bg-[hsl(220_14%_96%)] border border-[hsl(220_14%_91%)] rounded-full px-4 py-2 text-sm font-medium hover:bg-[hsl(220_14%_92%)] hover:border-[hsl(160_84%_39%)/0.3] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+                    className="inline-flex text-black items-center gap-2 bg-[hsl(220_14%_96%)] border border-[hsl(220_14%_91%)] rounded-full px-4 py-2 text-sm font-medium hover:bg-[hsl(220_14%_92%)] hover:border-[hsl(160_84%_39%)/0.3] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
                   >
                     {skill}
                     <div className="w-5 h-5 rounded-full border-2 border-[hsl(220_9%_46%)/0.3] group-hover:border-[hsl(160_84%_39%)] transition-colors flex items-center justify-center">

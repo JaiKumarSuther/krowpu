@@ -61,7 +61,7 @@ const plans: Plan[] = [
 
 const PricingPlans = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+    <section className="max-w-7xl bg-white mx-auto px-4 sm:px-6 md:px-12">
       <div className="bg-gradient-to-b from-white to-[hsl(140_20%_98%)] rounded-xl overflow-hidden p-6 sm:p-8 md:p-12">
 
         {/* Header */}
@@ -108,11 +108,11 @@ const PricingPlans = () => {
                   {plan.icon}
                 </div>
 
-                <h3 className="text-lg font-bold mb-1">{plan.name}</h3>
+                <h3 className="text-lg font-bold mb-1 text-black">{plan.name}</h3>
                 <p className="text-[hsl(215.4_16.3%_46.9%)] text-sm">{plan.description}</p>
 
                 <div className="mt-4 mb-6">
-                  <span className="text-2xl font-bold">{plan.price}</span>
+                  <span className="text-2xl text-black font-bold">{plan.price}</span>
                   {plan.price !== "$0" && (
                     <span className="text-sm ml-1 text-[hsl(215.4_16.3%_65%)]">/mo</span>
                   )}
