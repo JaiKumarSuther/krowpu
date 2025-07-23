@@ -7,6 +7,8 @@ interface StepNavigatorProps {
   onBack: () => void;
 }
 
+
+
 const StepNavigator = ({ currentStep, totalSteps, onNext, onBack }: StepNavigatorProps) => {
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === totalSteps - 1;

@@ -8,6 +8,7 @@ import Step4 from "@/components/client/Step4";
 import Step5 from "@/components/client/Step5";
 import StepNavigator from "@/components/ui/StepNavigator";
 import StepProgressBar from "@/components/ui/StepProgressBar";
+import { useRouter } from "next/navigation";
 
 const steps = [Step1, Step2, Step3, Step4, Step5];
 
@@ -15,7 +16,16 @@ export default function ClientEventPost() {
   const [step, setStep] = useState(0);
   const CurrentStep = steps[step];
 
-  const handleNext = () => step < steps.length - 1 && setStep(step + 1);
+  const router = useRouter();
+
+  const handleNext = () => {
+    if (step < steps.length - 1) {
+      setStep(step + 1);
+    } else {
+      router.push("/"); // Navigate to homepage or success page on last step
+    }
+  };
+
   const handleBack = () => step > 0 && setStep(step - 1);
 
   return (

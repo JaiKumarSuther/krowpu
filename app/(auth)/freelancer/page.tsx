@@ -5,6 +5,7 @@ import StepOnePreferences from "@/components/freelancer/StepOnePreferences";
 import StepTwoBudget from "@/components/freelancer/StepTwoBudget";
 import StepNavigator from "@/components/ui/StepNavigator";
 import StepProgressBar from "@/components/ui/StepProgressBar";
+import { useRouter } from "next/navigation";
 
 export default function Freelancer() {
   const [step, setStep] = useState(1);
@@ -56,11 +57,14 @@ export default function Freelancer() {
     setErrors(updatedErrors);
     return valid;
   };
+  const router = useRouter();
 
   const handleNext = () => {
-    if (step === 1 && validateStepOne()) setStep(2);
-    else if (step === 2 && validateStepTwo()) {
+    if (step === 1 && validateStepOne()) {
+      setStep(2);
+    } else if (step === 2 && validateStepTwo()) {
       console.log("✅ Submitted Data:", formData);
+      router.push("/"); // Navigate to homepage or dashboard
     }
   };
 
