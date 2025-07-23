@@ -15,7 +15,7 @@ const Footer = () => {
 const linkClass = "text-white hover:text-[hsl(140_60%_85%)] transition-colors duration-150";
 
   return (
-    <footer className="bg-[hsl(160_84%_39%)] text-[hsl(0_0%_100%)]">
+    <footer className="bg-[hsl(160_84%_22%)] text-[hsl(0_0%_100%)]">
       <div className="max-w-7xl mx-auto px-6 py-12">
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
