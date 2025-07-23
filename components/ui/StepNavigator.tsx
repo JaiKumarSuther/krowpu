@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 
 interface StepNavigatorProps {
@@ -7,25 +9,30 @@ interface StepNavigatorProps {
   onBack: () => void;
 }
 
-
-
-const StepNavigator = ({ currentStep, totalSteps, onNext, onBack }: StepNavigatorProps) => {
+const StepNavigator = ({
+  currentStep,
+  totalSteps,
+  onNext,
+  onBack,
+}: StepNavigatorProps) => {
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === totalSteps - 1;
-  const router = useRouter();
+
   return (
-    <div className="flex items-center justify-between">
+    <div className="w-full flex flex-col items-center gap-6 sm:flex-row sm:justify-between sm:gap-10">
       {/* Back Button */}
       <button
         onClick={onBack}
         disabled={isFirstStep}
         className={`
-          inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200
-          ${isFirstStep
-            ? 'opacity-50 cursor-not-allowed text-[hsl(215_20%_65%)]'
-            : 'text-[hsl(222.2_84%_4.9%)] hover:text-[hsl(160_84%_39%)] bg-[hsl(210_40%_96.1%)] hover:bg-[hsl(210_40%_92%)] border border-[hsl(214.3_31.8%_91.4%)] hover:border-[hsl(160_84%_39%)/0.3]'
+          inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium transition-all duration-200 w-full sm:w-auto
+          ${
+            isFirstStep
+              ? "opacity-50 cursor-not-allowed text-[hsl(215_20%_65%)]"
+              : "text-[hsl(222.2_84%_4.9%)] hover:text-[hsl(160_84%_39%)] bg-[hsl(210_40%_96.1%)] hover:bg-[hsl(210_40%_92%)] border border-[hsl(214.3_31.8%_91.4%)] hover:border-[hsl(160_84%_39%)/0.3]"
           }
         `}
+        aria-disabled={isFirstStep}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -34,17 +41,15 @@ const StepNavigator = ({ currentStep, totalSteps, onNext, onBack }: StepNavigato
       </button>
 
       {/* Step Indicators */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         {Array.from({ length: totalSteps }, (_, index) => (
           <div
             key={index}
-            className={`
-              w-2 h-2 rounded-full transition-all duration-300
-              ${index <= currentStep
-                ? 'bg-[hsl(160_84%_39%)] scale-125'
-                : 'bg-[hsl(214.3_31.8%_91.4%)] scale-100'
-              }
-            `}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index <= currentStep
+                ? "bg-[hsl(160_84%_39%)] scale-125"
+                : "bg-[hsl(214.3_31.8%_91.4%)] scale-100"
+            }`}
           />
         ))}
       </div>
@@ -52,22 +57,15 @@ const StepNavigator = ({ currentStep, totalSteps, onNext, onBack }: StepNavigato
       {/* Next/Finish Button */}
       <button
         onClick={onNext}
-        disabled={isLastStep}
-        className={`
-          inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 transform bg-[hsl(160_84%_39%)] text-white hover:bg-[hsl(160_84%_35%)]
-          ${isLastStep
-            ? ' shadow-lg hover:shadow-xl hover:-translate-y-0.5'
-            : ' shadow-lg hover:shadow-xl hover:-translate-y-0.5'
-          }
-        `}
+        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium transition-all duration-200 transform bg-[hsl(160_84%_39%)] text-white hover:bg-[hsl(160_84%_35%)] shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto"
       >
         {isLastStep ? (
-          <div onClick={() => router.push('/')} className="flex items-center gap-2">
+          <>
             Create Event
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-          </div>
+          </>
         ) : (
           <>
             Next

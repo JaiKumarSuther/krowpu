@@ -22,7 +22,8 @@ export default function ClientEventPost() {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      router.push("/"); // Navigate to homepage or success page on last step
+      console.log("Submitting form... 🚀");
+      router.push("/"); // Final redirect from inside top-level component
     }
   };
 
