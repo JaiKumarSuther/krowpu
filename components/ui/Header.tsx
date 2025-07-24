@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Settings, Bell, Menu, X } from "lucide-react";
 import GreenButton from "@/components/buttons/GreenButton";
 import { useRouter } from "next/navigation";
+import { IoChatbox, IoChatboxOutline } from "react-icons/io5";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -71,6 +72,12 @@ const Header = () => {
 
           {isLoggedIn ? (
             <div className="hidden md:flex items-center gap-3">
+              <button className="p-2 rounded-full hover:bg-[hsl(140_30%_95%)]  transition-colors" onClick={() => {router.push("/chat")}}>
+                  <IoChatboxOutline
+                    size={18}
+                    className="text-[hsl(215.4_16.3%_46.9%)] "
+                  />
+                </button>
               <button className="p-2 rounded-full hover:bg-[hsl(140_30%_95%)]  transition-colors duration-150">
                 <Settings
                   size={18}
@@ -136,6 +143,12 @@ const Header = () => {
 
             {isLoggedIn ? (
               <div className="flex items-center gap-4 pt-4 border-t border-[hsl(140_20%_90%)] ">
+                <button className="p-2 rounded-full hover:bg-[hsl(140_30%_95%)]  transition-colors" onClick={() => {router.push("/chat")}}>
+                  <IoChatboxOutline
+                    size={18}
+                    className="text-[hsl(215.4_16.3%_46.9%)] "
+                  />
+                </button>
                 <button className="p-2 rounded-full hover:bg-[hsl(140_30%_95%)]  transition-colors">
                   <Settings
                     size={18}
