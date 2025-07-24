@@ -6,15 +6,15 @@ import { CheckCircle, Target, Zap } from "lucide-react";
 const ImpactfulEventsBanner = () => {
   const features = [
     {
-      icon: <Target className="text-[hsl(140_70%_50%)]" size={20} />,
+      icon: <Target className="text-[hsl(140_70%_50%)] " size={20} />,
       text: "Browse event listings and discover exciting collaboration opportunities.",
     },
     {
-      icon: <Zap className="text-[hsl(140_70%_50%)]" size={20} />,
+      icon: <Zap className="text-[hsl(140_70%_50%)] " size={20} />,
       text: "Send your proposal to organizers showcasing your skills and ideas.",
     },
     {
-      icon: <CheckCircle className="text-[hsl(140_70%_50%)]" size={20} />,
+      icon: <CheckCircle className="text-[hsl(140_70%_50%)] " size={20} />,
       text: "Once selected, complete the task and receive secure payment.",
     },
   ];

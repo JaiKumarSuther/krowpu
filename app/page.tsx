@@ -5,10 +5,10 @@ import HeroSection from '@/components/HeroSection';
 import BrowseEvents from '@/components/BrowseEvents';
 import ImpactfulEventsBanner from '@/components/ImpactfulEventsBanner';
 import PricingPlans from '@/components/PricingPlans';
-export default function Home() { 
+export default function Page() { 
   return (
     <div>
-      <Header/>
+      
       <HeroSection/>
       <BrowseEvents/>
       <ImpactfulEventsBanner/>

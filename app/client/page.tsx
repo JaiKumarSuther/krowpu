@@ -30,7 +30,7 @@ export default function ClientEventPost() {
   const handleBack = () => step > 0 && setStep(step - 1);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[hsl(0_0%_99%)] via-[hsl(220_14%_96%)] to-[hsl(160_60%_95%)] relative">
+    <div className="min-h-screen bg-gradient-to-br from-[hsl(0_0%_99%)]  via-[hsl(220_14%_96%)] to-[hsl(160_60%_95%)] relative">
       {/* Decorative blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-[hsl(160_84%_39%)/0.05] blur-3xl animate-pulse" />
@@ -41,16 +41,11 @@ export default function ClientEventPost() {
         <div className="w-full max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(160_60%_95%)] rounded-full mb-6">
-              <div className="w-2 h-2 bg-[hsl(160_84%_39%)] rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-[hsl(160_84%_39%)]">
-                Event Creation Wizard
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-[hsl(220_13%_13%)] mb-4 tracking-tight">
+            
+            <h1 className="text-4xl md:text-5xl font-bold text-[hsl(220_13%_13%)]  mb-4 tracking-tight">
               Create Your Event
             </h1>
-            <p className="text-xl text-[hsl(220_9%_46%)] max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-[hsl(220_9%_46%)]  max-w-2xl mx-auto leading-relaxed">
               Let&apos;s craft something amazing together. Follow these steps to
               create an engaging event post.
             </p>
@@ -60,7 +55,7 @@ export default function ClientEventPost() {
           <StepProgressBar currentStep={step} totalSteps={5} />
 
           {/* Step card */}
-          <div className="bg-[hsl(0_0%_100%)/0.8] backdrop-blur-sm rounded-xl shadow-xl border border-[hsl(220_14%_91%)/0.5] overflow-hidden">
+          <div className="bg-[hsl(0_0%_100%)/0.8] backdrop-blur-sm rounded-xl shadow-xl border border-[hsl(220_14%_91%)] overflow-hidden">
             <div className="p-8 md:p-12 min-h-[500px] flex flex-col justify-between">
               <div className="transition-all duration-500 ease-out transform">
                 <CurrentStep />

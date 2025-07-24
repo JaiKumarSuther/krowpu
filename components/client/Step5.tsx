@@ -25,7 +25,7 @@ const Step5 = () => {
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setAttachedFiles((prev) => [...prev, ...Array.from(e.target.files as FileList)]);
+      setAttachedFiles((prev) => [...prev, ...Array.from(e.target.files as FileList)] );
     }
   };
 
@@ -42,32 +42,32 @@ const Step5 = () => {
   };
 
   return (
-    <div className="space-y-8 text-black">
+    <div className="space-y-8">
       <div className="flex flex-col lg:flex-row gap-12">
         <div className="flex-1 space-y-4">
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[hsl(160_84%_39%)] text-white text-sm font-bold">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[hsl(160_84%_39%)]  text-[hsl(0_0%_100%)]  text-sm font-bold">
               5
             </div>
-            <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase">
+            <span className="text-sm font-medium text-[hsl(215.4_16.3%_46.9%)]  tracking-wider uppercase">
               Event Post
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+          <h2 className="text-3xl lg:text-4xl font-bold text-[hsl(222.2_84%_4.9%)]  leading-tight">
             Start the
-            <span className="text-[hsl(160_84%_39%)] block lg:inline lg:ml-2">conversation</span>
+            <span className="text-[hsl(160_84%_39%)]  block lg:inline lg:ml-2">conversation</span>
           </h2>
 
           <div className="space-y-4">
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-[hsl(215.4_16.3%_46.9%)]  leading-relaxed">
               Write a clear, detailed description that will help attract the right talent for your project.
             </p>
 
-            <div className="bg-[hsl(160_60%_95%)] rounded-lg p-6 border border-[hsl(160_84%_39%)/0.1]">
-              <h3 className="font-medium text-foreground mb-3 flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-[hsl(160_84%_39%)/0.2] flex items-center justify-center">
-                  <FaCheckCircle className="w-3 h-3 text-[hsl(160_84%_39%)]" />
+            <div className="bg-[hsl(160_84%_39%/0.05)]  rounded-lg p-6 border border-[hsl(160_84%_39%/0.1)] ">
+              <h3 className="font-medium text-[hsl(222.2_84%_4.9%)]  mb-3 flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-[hsl(160_84%_39%/0.2)]  flex items-center justify-center">
+                  <FaCheckCircle className="w-3 h-3 text-[hsl(160_84%_39%)] " />
                 </div>
                 Include these key details:
               </h3>
@@ -80,8 +80,8 @@ const Step5 = () => {
                   "Timeline and deliverable expectations",
                   "Any specific tools or technologies to use"
                 ].map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[hsl(160_84%_39%)] mt-2 flex-shrink-0"></div>
+                  <li key={index} className="flex items-start gap-3 text-sm text-[hsl(215.4_16.3%_46.9%)] ">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[hsl(160_84%_39%)]  mt-2 flex-shrink-0"></div>
                     {item}
                   </li>
                 ))}
@@ -93,7 +93,7 @@ const Step5 = () => {
         <div className="flex-1 space-y-6">
           {/* Description Input */}
           <div className="space-y-3">
-            <label className="text-sm font-medium text-foreground block">
+            <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)]  block">
               Describe what you need
             </label>
             <div className="relative">
@@ -102,9 +102,9 @@ const Step5 = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 rows={8}
                 placeholder="Describe your project in detail. What are you looking to accomplish? What skills do you need? What does success look like?"
-                className="w-full bg-input border border-input-border rounded-lg px-4 py-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)] focus:border-transparent transition-all duration-200 resize-none"
+                className="w-full bg-input border border-[hsl(214.3_31.8%_91.4%)]  rounded-lg px-4 py-4 text-[hsl(222.2_84%_4.9%)]  placeholder:text-[hsl(215.4_16.3%_46.9%)]  focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)]  focus:border-transparent transition-all duration-200 resize-none"
               />
-              <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">
+              <div className="absolute bottom-3 right-3 text-xs text-[hsl(215.4_16.3%_46.9%)] ">
                 {description.length} characters
               </div>
             </div>
@@ -119,25 +119,25 @@ const Step5 = () => {
           <div className="space-y-3">
             <button
               onClick={() => setShowExamples(!showExamples)}
-              className="text-sm text-[hsl(160_84%_39%)] hover:opacity-80 transition-colors underline underline-offset-2"
+              className="text-sm text-[hsl(160_84%_39%)]  hover:opacity-80 transition-colors underline underline-offset-2"
             >
               {showExamples ? 'Hide' : 'See'} examples of effective descriptions
             </button>
 
             {showExamples && (
-              <div className="space-y-4 p-4 bg-[hsl(0_0%_96%)] rounded-lg border border-[hsl(0_0%_80%)]">
+              <div className="space-y-4 p-4 bg-[hsl(210_40%_96.1%)] /50 rounded-lg border border-[hsl(214.3_31.8%_91.4%)] ">
                 {exampleDescriptions.map((example, index) => (
                   <div key={index} className="space-y-2">
-                    <h4 className="font-medium text-foreground text-sm">{example.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{example.content}</p>
+                    <h4 className="font-medium text-[hsl(222.2_84%_4.9%)]  text-sm">{example.title}</h4>
+                    <p className="text-xs text-[hsl(215.4_16.3%_46.9%)]  leading-relaxed">{example.content}</p>
                     <button
                       onClick={() => setDescription(example.content)}
-                      className="text-xs text-[hsl(160_84%_39%)] hover:opacity-80"
+                      className="text-xs text-[hsl(160_84%_39%)]  hover:opacity-80"
                     >
                       Use this example
                     </button>
                     {index < exampleDescriptions.length - 1 && (
-                      <hr className="border-t border-[hsl(0_0%_80%)]" />
+                      <hr className="border-t border-[hsl(214.3_31.8%_91.4%)] " />
                     )}
                   </div>
                 ))}
@@ -156,12 +156,12 @@ const Step5 = () => {
                   className="sr-only"
                   accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.gif,.zip,.rar"
                 />
-                <div className="inline-flex items-center gap-2 px-4 py-3 border-2 border-[hsl(160_84%_39%)] text-[hsl(160_84%_39%)] hover:bg-[hsl(160_84%_39%)] hover:text-white rounded-lg transition-all duration-200 font-medium">
+                <div className="inline-flex items-center gap-2 px-4 py-3 border-2 border-[hsl(160_84%_39%)] text-[hsl(160_84%_39%)]  hover:bg-[hsl(160_84%_39%)]  hover:text-[hsl(0_0%_100%)]  rounded-lg transition-all duration-200 font-medium">
                   <FaPaperclip className="w-4 h-4" />
                   Attach Files
                 </div>
               </label>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-[hsl(215.4_16.3%_46.9%)] ">
                 <p>Max file size: 100MB</p>
                 <p>Supported: PDF, DOC, Images, ZIP</p>
               </div>
@@ -169,13 +169,13 @@ const Step5 = () => {
 
             {attachedFiles.length > 0 && (
               <div className="space-y-2">
-                <p className="text-sm font-medium text-foreground">Attached files:</p>
+                <p className="text-sm font-medium text-[hsl(222.2_84%_4.9%)] ">Attached files:</p>
                 <div className="space-y-2">
                   {attachedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-[hsl(0_0%_96%)] rounded-lg border border-[hsl(0_0%_80%)]">
+                    <div key={index} className="flex items-center gap-3 p-3 bg-[hsl(210_40%_96.1%)] /50 rounded-lg border border-[hsl(214.3_31.8%_91.4%)] ">
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-foreground truncate">{file.name}</p>
-                        <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
+                        <p className="text-sm font-medium text-[hsl(222.2_84%_4.9%)]  truncate">{file.name}</p>
+                        <p className="text-xs text-[hsl(215.4_16.3%_46.9%)] ">{formatFileSize(file.size)}</p>
                       </div>
                       <button
                         onClick={() => removeFile(index)}
@@ -194,14 +194,14 @@ const Step5 = () => {
 
           {/* Preview */}
           {description.length > 50 && (
-            <div className="bg-[hsl(0_0%_98%)] border border-[hsl(0_0%_80%)] rounded-lg p-4 space-y-3">
-              <h4 className="font-medium text-foreground flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-[hsl(160_84%_39%)/0.2] flex items-center justify-center">
-                  <FaEye className="w-3 h-3 text-[hsl(160_84%_39%)]" />
+            <div className="bg-card border border-[hsl(214.3_31.8%_91.4%)]  rounded-lg p-4 space-y-3">
+              <h4 className="font-medium text-[hsl(222.2_84%_4.9%)]  flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-[hsl(160_84%_39%/0.2)]  flex items-center justify-center">
+                  <FaEye className="w-3 h-3 text-[hsl(160_84%_39%)] " />
                 </div>
                 Preview
               </h4>
-              <div className="text-sm text-muted-foreground leading-relaxed">
+              <div className="text-sm text-[hsl(215.4_16.3%_46.9%)]  leading-relaxed">
                 {description.split('\n').map((line, i) => (
                   <p key={i}>{line}</p>
                 ))}

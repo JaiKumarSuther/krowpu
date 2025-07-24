@@ -18,20 +18,20 @@ const BrowseEvents = () => {
   return (
     <section className="max-w-7xl bg-white mx-auto px-6 md:px-12 pt-8">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 bg-[hsl(140_30%_95%)] px-4 py-2 rounded-full mb-4">
-          <TrendingUp size={16} className="text-[hsl(140_75%_20%)]" />
-          <span className="text-[hsl(215.4_16.3%_46.9%)] font-medium text-sm">
+        <div className="inline-flex items-center gap-2 bg-[hsl(140_30%_95%)]  px-4 py-2 rounded-full mb-4">
+          <TrendingUp size={16} className="text-[hsl(140_75%_20%)] " />
+          <span className="text-[hsl(215.4_16.3%_46.9%)]  font-medium text-sm">
             Most Popular Categories
           </span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl font-bold text-[hsl(222.2_84%_4.9%)] mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-[hsl(222.2_84%_4.9%)]  mb-4">
           Browse events by category
         </h2>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[hsl(215.4_16.3%_46.9%)]">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[hsl(215.4_16.3%_46.9%)] ">
           <span>Looking for work?</span>
-          <button className="text-[hsl(140_75%_20%)] font-semibold hover:text-[hsl(140_80%_15%)] transition-colors duration-150 inline-flex items-center gap-1 group">
+          <button className="text-[hsl(140_75%_20%)]  font-semibold hover:text-[hsl(140_80%_15%)]  transition-colors duration-150 inline-flex items-center gap-1 group">
             Browse all events
             <ArrowRight
               size={16}

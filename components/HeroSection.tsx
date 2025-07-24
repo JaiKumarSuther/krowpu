@@ -10,19 +10,19 @@ const HeroSection = () => {
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
 
   return (
-    <section className="w-full bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(140_20%_98%))] py-16 px-6 md:px-12 min-h-[600px]">
+    <section className="w-full bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(140_20%_98%))]  py-16 px-6 md:px-12 min-h-[600px]">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between lg:gap-12">
         {/* Left Side */}
         <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold italic text-[hsl(140_75%_20%)] leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold italic text-[hsl(140_75%_20%)]  leading-tight mb-6">
             Find the perfect <br />
-            <span className="bg-[linear-gradient(135deg,hsl(140_75%_20%),hsl(140_70%_35%))] bg-clip-text text-transparent">
+            <span className="bg-[linear-gradient(135deg,hsl(140_75%_20%),hsl(140_70%_35%))]  bg-clip-text text-transparent">
               freelancer
             </span>{" "}
             in seconds
           </h1>
 
-          <p className="text-[hsl(215.4_16.3%_46.9%)] text-lg md:text-xl mb-8 max-w-2xl">
+          <p className="text-[hsl(215.4_16.3%_46.9%)]  text-lg md:text-xl mb-8 max-w-2xl">
             Match with top talent through our revolutionary swipe-based
             platform. Connect, collaborate, and create amazing projects
             together.

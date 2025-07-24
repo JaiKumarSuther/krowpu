@@ -28,8 +28,8 @@ const StepNavigator = ({
           inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium transition-all duration-200 w-full sm:w-auto
           ${
             isFirstStep
-              ? "opacity-50 cursor-not-allowed text-[hsl(215_20%_65%)]"
-              : "text-[hsl(222.2_84%_4.9%)] hover:text-[hsl(160_84%_39%)] bg-[hsl(210_40%_96.1%)] hover:bg-[hsl(210_40%_92%)] border border-[hsl(214.3_31.8%_91.4%)] hover:border-[hsl(160_84%_39%)/0.3]"
+              ? "opacity-50 cursor-not-allowed text-[hsl(215_20%_65%)] "
+              : "text-[hsl(222.2_84%_4.9%)]  hover:text-[hsl(160_84%_39%)]  bg-[hsl(210_40%_96.1%)]  hover:bg-[hsl(210_40%_92%)]  border border-[hsl(214.3_31.8%_91.4%)]  hover:border-[hsl(160_84%_39%)/0.3]"
           }
         `}
         aria-disabled={isFirstStep}
@@ -47,8 +47,8 @@ const StepNavigator = ({
             key={index}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index <= currentStep
-                ? "bg-[hsl(160_84%_39%)] scale-125"
-                : "bg-[hsl(214.3_31.8%_91.4%)] scale-100"
+                ? "bg-[hsl(160_84%_39%)]  scale-125"
+                : "bg-[hsl(214.3_31.8%_91.4%)]  scale-100"
             }`}
           />
         ))}
@@ -57,7 +57,7 @@ const StepNavigator = ({
       {/* Next/Finish Button */}
       <button
         onClick={onNext}
-        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium transition-all duration-200 transform bg-[hsl(160_84%_39%)] text-white hover:bg-[hsl(160_84%_35%)] shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto"
+        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium transition-all duration-200 transform bg-[hsl(160_84%_39%)]  text-white hover:bg-[hsl(160_84%_35%)]  shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto"
       >
         {isLastStep ? (
           <>
