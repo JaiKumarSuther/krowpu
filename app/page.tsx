@@ -1,5 +1,4 @@
 'use client';
-import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
 import HeroSection from '@/components/HeroSection';
 import BrowseEvents from '@/components/BrowseEvents';

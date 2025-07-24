@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaEdit, FaCheckCircle } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import PostEventModal from "@/components/client/PostEventModal";
 
 const PostEvent = () => {

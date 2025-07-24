@@ -46,7 +46,7 @@ const StepOnePreferences = ({
           </div>
           
           <h2 className="text-3xl lg:text-4xl font-bold text-[hsl(222.2_84%_4.9%)]  leading-tight">
-            Let's start with your 
+            Let&apos;s start with your 
             <span className="text-[hsl(160_84%_39%)]  block lg:inline lg:ml-2">preferences</span>
           </h2>
           
@@ -132,7 +132,7 @@ const StepOnePreferences = ({
                 }}
                 className="inline-flex items-center gap-2 bg-[hsl(160_84%_39%)]  text-[hsl(0_0%_100%)]  rounded-full px-4 py-2 text-sm font-medium hover:bg-[hsl(160_84%_39%/0.9)]  transition-all duration-200"
               >
-                Add "{search}"
+                Add &quot;{search}&quot;
                 <FaPlus className="w-3 h-3" />
               </button>
             </div>
@@ -154,7 +154,7 @@ const StepOnePreferences = ({
               Tips for better matches
             </h4>
             <ul className="text-sm text-[hsl(215.4_16.3%_46.9%)]  space-y-1">
-              <li>• Choose skills you're most confident in</li>
+              <li>• Choose skills you&apos;re most confident in</li>
               <li>• Include both technical and soft skills</li>
               <li>• Be specific about your areas of expertise</li>
               <li>• You can add custom skills if needed</li>

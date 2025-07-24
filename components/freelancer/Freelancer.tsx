@@ -124,7 +124,7 @@ export default function Freelancer() {
               Setup Your Profile
             </h1>
             <p className="text-xl text-[hsl(215.4_16.3%_46.9%)]  max-w-2xl mx-auto leading-relaxed">
-              Let's configure your freelance profile to match you with the
+              Let&apos;s configure your freelance profile to match you with the
               perfect opportunities.
             </p>
           </div>

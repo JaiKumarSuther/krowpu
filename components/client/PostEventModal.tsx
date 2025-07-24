@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
 interface PostEventModalProps {
@@ -73,7 +72,7 @@ const PostEventModal = ({ isOpen, onClose }: PostEventModalProps) => {
           </h2>
           
           <p className="text-[hsl(215.4_16.3%_46.9%)]  leading-relaxed">
-            You'll receive proposals and you can invite talent event. No charges until you hire.
+            You&apos;ll receive proposals and you can invite talent event. No charges until you hire.
           </p>
         </div>
 

@@ -166,10 +166,10 @@ const FreelancerProfilePage = () => {
                 AI Workshop: Supercharge Your Freelance Career with AI Tools
               </h3>
               <p className="text-[hsl(215.4_16.3%_46.9%)]  leading-relaxed mb-4">
-                Join our interactive AI Workshop designed exclusively for freelancers! Learn how to integrate cutting-edge AI tools into your workflow to boost productivity, streamline client communication, and stay ahead in the freelance market. Whether you're a designer, writer, developer, or marketer—this session will give you hands-on strategies to elevate your game using AI.
+                Join our interactive AI Workshop designed exclusively for freelancers! Learn how to integrate cutting-edge AI tools into your workflow to boost productivity, streamline client communication, and stay ahead in the freelance market. Whether you&apos;re a designer, writer, developer, or marketer—this session will give you hands-on strategies to elevate your game using AI.
               </p>
               <p className="text-[hsl(215.4_16.3%_46.9%)]  leading-relaxed">
-                Join our interactive AI Workshop designed exclusively for freelancers! Learn how to integrate cutting-edge AI tools into your workflow to boost productivity, streamline client communication, and stay ahead in the freelance market. Whether you're a designer, writer, developer, or marketer—this session will give you hands-on strategies to elevate your game using AI.
+                Join our interactive AI Workshop designed exclusively for freelancers! Learn how to integrate cutting-edge AI tools into your workflow to boost productivity, streamline client communication, and stay ahead in the freelance market. Whether you&apos;re a designer, writer, developer, or marketer—this session will give you hands-on strategies to elevate your game using AI.
               </p>
               
               {/* Skills */}

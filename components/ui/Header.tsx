@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Settings, Bell, Menu, X } from "lucide-react";
 import GreenButton from "@/components/buttons/GreenButton";
 import { useRouter } from "next/navigation";
-import { IoChatbox, IoChatboxOutline } from "react-icons/io5";
+import { IoChatboxOutline } from "react-icons/io5";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
