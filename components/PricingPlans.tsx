@@ -61,7 +61,7 @@ const plans: Plan[] = [
 
 const PricingPlans = () => {
   return (
-    <section className="max-w-7xl bg-white mx-auto px-4 sm:px-6 md:px-12">
+    <section className="max-w-7xl bg-white mx-auto px-4 sm:px-6 md:px-12" id="pricing-section">
       <div className="bg-gradient-to-b from-white to-[hsl(140_20%_98%)]  rounded-xl overflow-hidden p-6 sm:p-8 md:p-12">
 
         {/* Header */}
