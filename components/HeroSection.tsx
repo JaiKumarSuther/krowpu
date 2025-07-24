@@ -28,14 +28,14 @@ const HeroSection = () => {
             together.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start mb-12">
             <GreenButton
-              className="rounded-full w-50 group"
+              className="rounded-full min-w-[180px] group"
               onClick={() => {
                 // TODO: Add your Get Started button logic here
               }}
             >
-              <span className="flex items-center">
+              <span className="flex items-center justify-center">
                 Get Started
                 <ArrowRight
                   size={18}
@@ -43,8 +43,9 @@ const HeroSection = () => {
                 />
               </span>
             </GreenButton>
+
             <OutlinedGrayButton
-              className="rounded-full"
+              className="rounded-full min-w-[180px]"
               onClick={() => setIsPlayingVideo(!isPlayingVideo)}
             >
               <Play size={18} className="mr-2" />

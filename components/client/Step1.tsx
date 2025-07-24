@@ -13,7 +13,7 @@ const Step1 = () => {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 text-black">
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row gap-12">
         <div className="flex-1 space-y-4">
