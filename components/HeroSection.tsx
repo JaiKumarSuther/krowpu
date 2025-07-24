@@ -5,9 +5,10 @@ import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
 import GreenButton from "@/components/buttons/GreenButton";
 import OutlinedGrayButton from "@/components/buttons/OutlinedGrayButton";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
-  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const router = useRouter();
 
   return (
     <section className="w-full bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(140_20%_98%))]  py-16 px-6 md:px-12 min-h-[600px]">
@@ -32,7 +33,7 @@ const HeroSection = () => {
             <GreenButton
               className="rounded-full min-w-[180px] group"
               onClick={() => {
-                // TODO: Add your Get Started button logic here
+                router.push("/freelancer");
               }}
             >
               <span className="flex items-center justify-center">
@@ -46,7 +47,9 @@ const HeroSection = () => {
 
             <OutlinedGrayButton
               className="rounded-full min-w-[180px]"
-              onClick={() => setIsPlayingVideo(!isPlayingVideo)}
+              onClick={() => {
+                router.push("/client");
+              }}
             >
               <Play size={18} className="mr-2" />
               Learn how to hire
