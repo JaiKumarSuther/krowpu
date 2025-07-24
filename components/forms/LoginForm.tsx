@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import GreenButton from "@/components/buttons/GreenButton";
@@ -14,7 +13,6 @@ const LoginForm = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
-  const router = useRouter();
 
   const validate = () => {
     const newErrors: { email?: string; password?: string } = {};
