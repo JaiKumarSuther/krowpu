@@ -41,7 +41,7 @@ const LoginForm = () => {
 
     // Simulate login success
     localStorage.setItem("isLoggedIn", "true"); // ✅ Save flag
-    router.push("/");
+    window.location.href = "/";
   };
 
   const inputClasses =
@@ -49,7 +49,7 @@ const LoginForm = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(210_40%_96.1%))]  py-12">
-      <div className="w-full max-w-[480px] bg-[hsl(0_0%_100%)/0.8] backdrop-blur-sm rounded-xl shadow-[0_10px_30px_-10px_hsl(160_84%_39%/0.3)]   p-8">
+      <div className="w-full max-w-[480px] bg-[hsl(0_`0%_100%)/0.8] backdrop-blur-sm rounded-xl shadow-[0_10px_30px_-10px_hsl(160_84%_39%/0.3)]   p-8">
         <h1 className="text-2xl font-semibold text-[hsl(222.2_84%_4.9%)]  mb-8 text-center">
           Log in to KROWPU
         </h1>
