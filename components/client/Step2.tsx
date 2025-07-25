@@ -106,7 +106,7 @@ const Step2 = () => {
           {/* Popular/Search Results */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)]  block">
-              {searchTerm ? 'Search Results' : 'Popular skills for Events'}
+              {searchTerm ? 'Search Results' : 'Popular skills for Jobs'}
             </label>
             <div className="flex flex-wrap gap-2">
               {(searchTerm ? filteredSkills : popularSkills)

@@ -39,6 +39,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+interface Filters {
+  status: string;
+  category: string;
+  datePosted: string;
+}
+
 const Sidebar = React.memo(function Sidebar({
   searchQuery,
   setSearchQuery,
@@ -53,12 +59,15 @@ const Sidebar = React.memo(function Sidebar({
   searchQuery: string;
   setSearchQuery: (val: string) => void;
   setCurrentPage: (val: number) => void;
-  filters: { status: string; category: string; datePosted: string };
-  setFilters: (val: any) => void;
+  filters: Filters;
+  setFilters: (val: Filters) => void;
   selectedTab: string;
   setSelectedTab: (val: string) => void;
   setIsSidebarOpen: (val: boolean) => void;
-  router: any;
+  router: {
+    push: (path: string) => void;
+    // Add other router methods you use if any
+  };
 }) {
   return (
     <div className="bg-[hsl(0_0%_100%)] h-full p-4 lg:p-6 border-r border-[hsl(214.3_31.8%_91.4%)] overflow-y-auto">

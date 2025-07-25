@@ -23,6 +23,11 @@ import {
 } from "@/components/ui/select";
 import React from "react";
 
+interface Filters {
+  experienceLevel: string;
+  projectLength: string;
+}
+
 const Sidebar = React.memo(function Sidebar({
   searchQuery,
   setSearchQuery,
@@ -38,8 +43,8 @@ const Sidebar = React.memo(function Sidebar({
   setCurrentPage: (val: number) => void;
   selectedCategory: string;
   setSelectedCategory: (val: string) => void;
-  filters: any;
-  setFilters: (val: any) => void;
+  filters: Filters;
+  setFilters: (val: Filters) => void;
   setIsSidebarOpen: (val: boolean) => void;
 }) {
   // You may need to move categories definition outside or pass as prop
@@ -205,26 +210,14 @@ const FreelancerFeed = () => {
   const [isJobDetailOpen, setIsJobDetailOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     experienceLevel: "",
     projectLength: "",
-    clientHistory: "",
-    paymentVerified: false,
   });
 
   const jobsPerPage = 6;
 
-  const categories = [
-    "All",
-    "Development & IT",
-    "Design & Creative",
-    "Sales & Marketing",
-    "Writing & Translation",
-    "Admin & Customer Support",
-    "Data Science",
-    "Mobile Development",
-    "DevOps & Cloud",
-  ];
+
 
   const jobs = [
     {

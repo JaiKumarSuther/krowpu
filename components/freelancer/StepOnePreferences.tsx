@@ -100,7 +100,7 @@ const StepOnePreferences = ({
           {/* Available Skills */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)]  block">
-              {search ? 'Search Results' : 'Popular skills for Events'}
+              {search ? 'Search Results' : 'Popular skills for Jobs'}
             </label>
             <div className="flex flex-wrap gap-2">
               {(search ? filteredSkills : allSkills.filter(skill => !selectedSkills.includes(skill)))
@@ -110,7 +110,7 @@ const StepOnePreferences = ({
                     key={skill}
                     onClick={() => onToggleSkill(skill)}
                     disabled={selectedSkills.length >= 5}
-                    className="inline-flex items-center gap-2 bg-[hsl(210_40%_96.1%)]  border border-[hsl(214.3_31.8%_91.4%)]  rounded-full px-4 py-2 text-sm font-medium hover:bg-[hsl(210_40%_96.1%)]  hover:border-[hsl(160_84%_39%/0.3)]  transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+                    className="inline-flex items-center gap-2 bg-[hsl(210_40%_96.1%)]  border border-[hsl(214.3_31.8%_91.4%)] text-black rounded-full px-4 py-2 text-sm font-medium hover:bg-[hsl(210_40%_96.1%)]  hover:border-[hsl(160_84%_39%/0.3)]  transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
                   >
                     {skill}
                     <div className="w-4 h-4 rounded-full border border-[hsl(215.4_16.3%_46.9%/0.3)]  group-hover:border-[hsl(160_84%_39%)] transition-colors flex items-center justify-center">

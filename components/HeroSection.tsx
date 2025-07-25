@@ -32,7 +32,7 @@ const HeroSection = () => {
             <GreenButton
               className="rounded-full min-w-[180px] group"
               onClick={() => {
-                router.push("/freelancer");
+                router.push("/select-role");
               }}
             >
               <span className="flex items-center justify-center">
@@ -47,7 +47,6 @@ const HeroSection = () => {
             <OutlinedGrayButton
               className="rounded-full min-w-[180px]"
               onClick={() => {
-                router.push("/client");
               }}
             >
               <Play size={18} className="mr-2" />
