@@ -18,7 +18,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +37,170 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
+import React from "react";
+
+const Sidebar = React.memo(function Sidebar({
+  searchQuery,
+  setSearchQuery,
+  setCurrentPage,
+  filters,
+  setFilters,
+  selectedTab,
+  setSelectedTab,
+  setIsSidebarOpen,
+  router,
+}: {
+  searchQuery: string;
+  setSearchQuery: (val: string) => void;
+  setCurrentPage: (val: number) => void;
+  filters: { status: string; category: string; datePosted: string };
+  setFilters: (val: any) => void;
+  selectedTab: string;
+  setSelectedTab: (val: string) => void;
+  setIsSidebarOpen: (val: boolean) => void;
+  router: any;
+}) {
+  return (
+    <div className="bg-[hsl(0_0%_100%)] h-full p-4 lg:p-6 border-r border-[hsl(214.3_31.8%_91.4%)] overflow-y-auto">
+      <div className="flex justify-between items-center mb-6 lg:hidden">
+        <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold">
+          Job Management
+        </h2>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setIsSidebarOpen(false)}
+        >
+          <X className="w-4 h-4" />
+        </Button>
+      </div>
+
+      <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold mb-6 hidden lg:block">
+        Job Management
+      </h2>
+
+      {/* Post a Job Button */}
+      <div className="mb-6">
+        <Button
+          onClick={() => router.push("/client")}
+          className="w-full mb-3 bg-[hsl(160_84%_39%)] hover:bg-[hsl(160_84%_35%)] text-white"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Post a Job
+        </Button>
+      </div>
+
+      {/* Search */}
+      <div className="relative mb-6">
+        <Search className="absolute left-3 top-3 text-[hsl(215.4_16.3%_46.9%)] w-4 h-4" />
+        <Input
+          type="text"
+          placeholder="Search your jobs"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="pl-10"
+        />
+      </div>
+
+      {/* Filters */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Filter className="text-[hsl(215.4_16.3%_46.9%)]" size={16} />
+          <span className="font-medium text-[hsl(222.2_84%_4.9%)]">
+            Filters
+          </span>
+        </div>
+
+        <div className="space-y-4">
+          {/* Status Filter */}
+          <div>
+            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
+              Status
+            </label>
+            <Select
+              value={filters.status}
+              onValueChange={(value) => {
+                setFilters({ ...filters, status: value });
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="any">All statuses</SelectItem>
+                <SelectItem value="active">Active</SelectItem>
+                <SelectItem value="paused">Paused</SelectItem>
+                <SelectItem value="closed">Closed</SelectItem>
+                <SelectItem value="draft">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Category Filter */}
+          <div>
+            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
+              Category
+            </label>
+            <Select
+              value={filters.category}
+              onValueChange={(value) => {
+                setFilters({ ...filters, category: value });
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="any">All categories</SelectItem>
+                <SelectItem value="Development & IT">
+                  Development & IT
+                </SelectItem>
+                <SelectItem value="Design & Creative">
+                  Design & Creative
+                </SelectItem>
+                <SelectItem value="Writing & Translation">
+                  Writing & Translation
+                </SelectItem>
+                <SelectItem value="Data Science">Data Science</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="space-y-2 mb-8">
+        <h3 className="font-medium text-[hsl(222.2_84%_4.9%)] mb-3">
+          Dashboard
+        </h3>
+        {["posted", "proposals", "analytics"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => {
+              setSelectedTab(tab);
+              setIsSidebarOpen(false);
+            }}
+            className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded text-sm transition-colors ${
+              selectedTab === tab
+                ? "bg-[hsl(210_40%_96.1%)] text-[hsl(222.2_47.4%_11.2%)] font-medium"
+                : "text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] hover:bg-[hsl(210_40%_96.1%/0.5)]"
+            }`}
+          >
+            {tab === "posted" && <Briefcase className="w-4 h-4" />}
+            {tab === "proposals" && <FileText className="w-4 h-4" />}
+            {tab === "analytics" && <BarChart3 className="w-4 h-4" />}
+            {tab.charAt(0).toUpperCase() + tab.slice(1)} Jobs
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+});
 
 const ClientFeed = () => {
   const [selectedTab, setSelectedTab] = useState("posted");
@@ -47,9 +211,9 @@ const ClientFeed = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
-    status: "",
-    category: "",
-    datePosted: "",
+    status: "any", // Not ""
+    category: "any", // Not ""
+    datePosted: "", // If used
   });
 
   const jobsPerPage = 6;
@@ -306,10 +470,10 @@ const ClientFeed = () => {
       );
 
     const matchesStatus =
-      filters.status === "" || job.status === filters.status;
+      filters.status === "any" || job.status === filters.status;
 
     const matchesCategory =
-      filters.category === "" || job.category === filters.category;
+      filters.category === "any" || job.category === filters.category;
 
     return matchesSearch && matchesStatus && matchesCategory;
   });
@@ -324,195 +488,6 @@ const ClientFeed = () => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const Sidebar = () => (
-    <div className="bg-[hsl(0_0%_100%)] h-full p-4 lg:p-6 border-r border-[hsl(214.3_31.8%_91.4%)] overflow-y-auto">
-      <div className="flex justify-between items-center mb-6 lg:hidden">
-        <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold">
-          Job Management
-        </h2>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          <X className="w-4 h-4" />
-        </Button>
-      </div>
-
-      <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold mb-6 hidden lg:block">
-        Job Management
-      </h2>
-
-      {/* Quick Actions */}
-      <div className="mb-6">
-        <Button
-          onClick={() => {
-            // setIsPostJobOpen(true);
-            // setIsSidebarOpen(false);
-            router.push('/client')
-          }}
-          className="w-full mb-3 bg-[hsl(160_84%_39%)] hover:bg-[hsl(160_84%_35%)] text-white"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Post a Job
-        </Button>
-      </div>
-
-      {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-3 text-[hsl(215.4_16.3%_46.9%)] w-4 h-4" />
-        <Input
-          type="text"
-          placeholder="Search your jobs"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="pl-10"
-        />
-      </div>
-
-      {/* Filters */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-4">
-          <Filter className="text-[hsl(215.4_16.3%_46.9%)]" size={16} />
-          <span className="font-medium text-[hsl(222.2_84%_4.9%)]">
-            Filters
-          </span>
-        </div>
-
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
-              Status
-            </label>
-            <Select
-              value={filters.status}
-              onValueChange={(value) => {
-                setFilters({ ...filters, status: value });
-                setCurrentPage(1);
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="All statuses" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">All statuses</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="paused">Paused</SelectItem>
-                <SelectItem value="closed">Closed</SelectItem>
-                <SelectItem value="draft">Draft</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
-              Category
-            </label>
-            <Select
-              value={filters.category}
-              onValueChange={(value) => {
-                setFilters({ ...filters, category: value });
-                setCurrentPage(1);
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="All categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">All categories</SelectItem>
-                <SelectItem value="Development & IT">
-                  Development & IT
-                </SelectItem>
-                <SelectItem value="Design & Creative">
-                  Design & Creative
-                </SelectItem>
-                <SelectItem value="Writing & Translation">
-                  Writing & Translation
-                </SelectItem>
-                <SelectItem value="Data Science">Data Science</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="space-y-2 mb-8">
-        <h3 className="font-medium text-[hsl(222.2_84%_4.9%)] mb-3">
-          Dashboard
-        </h3>
-        <button
-          onClick={() => {
-            setSelectedTab("posted");
-            setIsSidebarOpen(false);
-          }}
-          className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded text-sm transition-colors ${
-            selectedTab === "posted"
-              ? "bg-[hsl(210_40%_96.1%)] text-[hsl(222.2_47.4%_11.2%)] font-medium"
-              : "text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] hover:bg-[hsl(210_40%_96.1%/0.5)]"
-          }`}
-        >
-          <Briefcase className="w-4 h-4" />
-          Posted Jobs
-        </button>
-        <button
-          onClick={() => {
-            setSelectedTab("proposals");
-            setIsSidebarOpen(false);
-          }}
-          className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded text-sm transition-colors ${
-            selectedTab === "proposals"
-              ? "bg-[hsl(210_40%_96.1%)] text-[hsl(222.2_47.4%_11.2%)] font-medium"
-              : "text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] hover:bg-[hsl(210_40%_96.1%/0.5)]"
-          }`}
-        >
-          <FileText className="w-4 h-4" />
-          All Proposals
-        </button>
-        <button
-          onClick={() => {
-            setSelectedTab("analytics");
-            setIsSidebarOpen(false);
-          }}
-          className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded text-sm transition-colors ${
-            selectedTab === "analytics"
-              ? "bg-[hsl(210_40%_96.1%)] text-[hsl(222.2_47.4%_11.2%)] font-medium"
-              : "text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] hover:bg-[hsl(210_40%_96.1%/0.5)]"
-          }`}
-        >
-          <BarChart3 className="w-4 h-4" />
-          Analytics
-        </button>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="bg-[hsl(210_40%_96.1%)] rounded-lg p-4 space-y-2">
-        <h4 className="font-medium text-[hsl(222.2_84%_4.9%)] text-sm">
-          Quick Stats
-        </h4>
-        <div className="text-xs text-[hsl(215.4_16.3%_46.9%)]">
-          <div className="flex justify-between">
-            <span>Active Jobs:</span>
-            <span className="font-medium text-[hsl(222.2_84%_4.9%)]">2</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Total Proposals:</span>
-            <span className="font-medium text-[hsl(222.2_84%_4.9%)]">5</span>
-          </div>
-          <div className="flex justify-between">
-            <span>This Month:</span>
-            <span className="font-medium text-[hsl(222.2_84%_4.9%)]">
-              $12,800
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-[hsl(0_0%_100%)]">
@@ -543,18 +518,39 @@ const ClientFeed = () => {
         {/* Mobile Sidebar */}
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
           <SheetContent side="left" className="w-80 p-0">
-            <Sidebar />
+            <Sidebar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              setCurrentPage={setCurrentPage}
+              filters={filters}
+              setFilters={setFilters}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+              setIsSidebarOpen={setIsSidebarOpen}
+              router={router}
+            />
           </SheetContent>
         </Sheet>
 
         {/* Desktop Sidebar */}
         <div className="hidden lg:block w-64 min-h-screen">
-          <Sidebar />
+          <Sidebar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setCurrentPage={setCurrentPage}
+            filters={filters}
+            setFilters={setFilters}
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+            setIsSidebarOpen={setIsSidebarOpen}
+            router={router}
+          />
         </div>
 
         {/* Main Content */}
         <div className="flex-1 p-4 lg:p-6">
           {/* Results Header */}
+         
           <div className="mb-6 hidden lg:block">
             <h1 className="text-2xl font-bold text-[hsl(222.2_84%_4.9%)] mb-2">
               My Posted Jobs
@@ -564,14 +560,12 @@ const ClientFeed = () => {
               {totalPages}
             </p>
           </div>
-
           {/* Mobile Results Summary */}
           <div className="mb-4 lg:hidden">
             <p className="text-[hsl(215.4_16.3%_46.9%)] text-sm">
               {filteredJobs.length} jobs • Page {currentPage}/{totalPages}
             </p>
           </div>
-
           {/* Jobs Grid */}
           <div className="space-y-4 lg:space-y-6 mb-8">
             {currentJobs.map((job) => (
@@ -676,7 +670,6 @@ const ClientFeed = () => {
               </div>
             ))}
           </div>
-
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -867,7 +860,7 @@ const ClientFeed = () => {
                               variant="outline"
                               size="sm"
                               className="w-full"
-                              onClick={() => router.push('/freelancer/profile')}
+                              onClick={() => router.push("/freelancer/profile")}
                             >
                               View Profile
                             </Button>

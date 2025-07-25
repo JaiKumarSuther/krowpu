@@ -43,8 +43,8 @@ const LoginForm = () => {
     // Simulate login success
     localStorage.setItem("isLoggedIn", "true");
 
-    // Get stored userRole
-    const userRole = localStorage.getItem("userRole");
+    // // Get stored userRole
+    // const userRole = localStorage.getItem("userRole");
 
     router.push('/');
   };

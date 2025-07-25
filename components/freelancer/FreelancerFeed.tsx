@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   Search,
   MapPin,
-  Clock,
   Filter,
   Heart,
   Bookmark,
@@ -22,6 +21,182 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import React from "react";
+
+const Sidebar = React.memo(function Sidebar({
+  searchQuery,
+  setSearchQuery,
+  setCurrentPage,
+  selectedCategory,
+  setSelectedCategory,
+  filters,
+  setFilters,
+  setIsSidebarOpen,
+}: {
+  searchQuery: string;
+  setSearchQuery: (val: string) => void;
+  setCurrentPage: (val: number) => void;
+  selectedCategory: string;
+  setSelectedCategory: (val: string) => void;
+  filters: any;
+  setFilters: (val: any) => void;
+  setIsSidebarOpen: (val: boolean) => void;
+}) {
+  // You may need to move categories definition outside or pass as prop
+  const categories = [
+    "All",
+    "Development & IT",
+    "Design & Creative",
+    "Sales & Marketing",
+    "Writing & Translation",
+    "Admin & Customer Support",
+    "Data Science",
+    "Mobile Development",
+    "DevOps & Cloud",
+  ];
+
+  return (
+    <div className="bg-[hsl(0_0%_100%)] h-full p-4 lg:p-6 border-r border-[hsl(214.3_31.8%_91.4%)] overflow-y-auto">
+      <div className="flex justify-between items-center mb-6 lg:hidden">
+        <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold">
+          Find Jobs
+        </h2>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setIsSidebarOpen(false)}
+        >
+          <X className="w-4 h-4" />
+        </Button>
+      </div>
+
+      <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold mb-6 hidden lg:block">
+        Find Jobs
+      </h2>
+
+      {/* Search */}
+      <div className="relative mb-6">
+        <Search className="absolute left-3 top-3 text-[hsl(215.4_16.3%_46.9%)] w-4 h-4" />
+        <Input
+          type="text"
+          placeholder="Search for jobs"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="pl-10"
+        />
+      </div>
+
+      {/* Filters */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Filter className="text-[hsl(215.4_16.3%_46.9%)]" size={16} />
+          <span className="font-medium text-[hsl(222.2_84%_4.9%)]">
+            Filters
+          </span>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
+              Experience Level
+            </label>
+            <Select
+              value={filters.experienceLevel}
+              onValueChange={(value) => {
+                setFilters({ ...filters, experienceLevel: value });
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Any level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="any">Any level</SelectItem>
+                <SelectItem value="entry">Entry Level</SelectItem>
+                <SelectItem value="intermediate">Intermediate</SelectItem>
+                <SelectItem value="expert">Expert</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
+              Project Length
+            </label>
+            <Select
+              value={filters.projectLength}
+              onValueChange={(value) => {
+                setFilters({ ...filters, projectLength: value });
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Any duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="any">Any duration</SelectItem>
+                <SelectItem value="short">Less than 1 month</SelectItem>
+                <SelectItem value="medium">1-3 months</SelectItem>
+                <SelectItem value="long">3-6 months</SelectItem>
+                <SelectItem value="ongoing">More than 6 months</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="space-y-2 mb-8">
+        <h3 className="font-medium text-[hsl(222.2_84%_4.9%)] mb-3">
+          Categories
+        </h3>
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => {
+              setSelectedCategory(category);
+              setCurrentPage(1);
+              setIsSidebarOpen(false);
+            }}
+            className={`block w-full text-left px-3 py-2 rounded text-sm transition-colors ${
+              selectedCategory === category
+                ? "bg-[hsl(210_40%_96.1%)] text-[hsl(222.2_47.4%_11.2%)] font-medium"
+                : "text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] hover:bg-[hsl(210_40%_96.1%/0.5)]"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* Saved Jobs */}
+      <div className="mb-8">
+        <h3 className="font-medium text-[hsl(222.2_84%_4.9%)] mb-4">
+          Saved Jobs
+        </h3>
+        <div className="space-y-4">
+          <div className="text-[hsl(215.4_16.3%_46.9%)] text-sm">
+            <div className="text-[hsl(215.4_16.3%_46.9%)] text-xs mb-1">
+              Saved Yesterday
+            </div>
+            <div className="text-[hsl(222.2_84%_4.9%)] font-medium">
+              AI Workshop: Supercharge Your Income
+            </div>
+            <div className="text-xs text-[hsl(215.4_16.3%_46.9%)] mt-2">
+              Join our interactive AI Workshop...
+            </div>
+            <div className="bg-[hsl(210_40%_96.1%)] inline-block px-2 py-1 rounded text-xs mt-2 text-[hsl(222.2_47.4%_11.2%)]">
+              Artificial Intelligence
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
 
 const FreelancerFeed = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -392,142 +567,6 @@ const FreelancerFeed = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const Sidebar = () => (
-    <div className="bg-[hsl(0_0%_100%)] h-full p-4 lg:p-6 border-r border-[hsl(214.3_31.8%_91.4%)] overflow-y-auto">
-      <div className="flex justify-between items-center mb-6 lg:hidden">
-        <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold">
-          Find Jobs
-        </h2>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          <X className="w-4 h-4" />
-        </Button>
-      </div>
-
-      <h2 className="text-[hsl(222.2_84%_4.9%)] text-lg font-semibold mb-6 hidden lg:block">
-        Find Jobs
-      </h2>
-
-      {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-3 text-[hsl(215.4_16.3%_46.9%)] w-4 h-4" />
-        <Input
-          type="text"
-          placeholder="Search for jobs"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="pl-10"
-        />
-      </div>
-
-      {/* Filters */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-4">
-          <Filter className="text-[hsl(215.4_16.3%_46.9%)]" size={16} />
-          <span className="font-medium text-[hsl(222.2_84%_4.9%)]">Filters</span>
-        </div>
-
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
-              Experience Level
-            </label>
-            <Select
-              value={filters.experienceLevel}
-              onValueChange={(value) => {
-                setFilters({ ...filters, experienceLevel: value });
-                setCurrentPage(1);
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Any level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">Any level</SelectItem>
-                <SelectItem value="entry">Entry Level</SelectItem>
-                <SelectItem value="intermediate">Intermediate</SelectItem>
-                <SelectItem value="expert">Expert</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-[hsl(222.2_84%_4.9%)] mb-2">
-              Project Length
-            </label>
-            <Select
-              value={filters.projectLength}
-              onValueChange={(value) => {
-                setFilters({ ...filters, projectLength: value });
-                setCurrentPage(1);
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Any duration" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">Any duration</SelectItem>
-                <SelectItem value="short">Less than 1 month</SelectItem>
-                <SelectItem value="medium">1-3 months</SelectItem>
-                <SelectItem value="long">3-6 months</SelectItem>
-                <SelectItem value="ongoing">More than 6 months</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </div>
-
-      {/* Categories */}
-      <div className="space-y-2 mb-8">
-        <h3 className="font-medium text-[hsl(222.2_84%_4.9%)] mb-3">Categories</h3>
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => {
-              setSelectedCategory(category);
-              setCurrentPage(1);
-              setIsSidebarOpen(false);
-            }}
-            className={`block w-full text-left px-3 py-2 rounded text-sm transition-colors ${
-              selectedCategory === category
-                ? "bg-[hsl(210_40%_96.1%)] text-[hsl(222.2_47.4%_11.2%)] font-medium"
-                : "text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] hover:bg-[hsl(210_40%_96.1%/0.5)]"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-
-      {/* Saved Jobs */}
-      <div className="mb-8">
-        <h3 className="font-medium text-[hsl(222.2_84%_4.9%)] mb-4">Saved Jobs</h3>
-        <div className="space-y-4">
-          <div className="text-[hsl(215.4_16.3%_46.9%)] text-sm">
-            <div className="text-[hsl(215.4_16.3%_46.9%)] text-xs mb-1">
-              Saved Yesterday
-            </div>
-            <div className="text-[hsl(222.2_84%_4.9%)] font-medium">
-              AI Workshop: Supercharge Your Income
-            </div>
-            <div className="text-xs text-[hsl(215.4_16.3%_46.9%)] mt-2">
-              Join our interactive AI Workshop...
-            </div>
-            <div className="bg-[hsl(210_40%_96.1%)] inline-block px-2 py-1 rounded text-xs mt-2 text-[hsl(222.2_47.4%_11.2%)]">
-              Artificial Intelligence
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-[hsl(0_0%_100%)]">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row">
@@ -549,13 +588,31 @@ const FreelancerFeed = () => {
         {/* Mobile Sidebar */}
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
           <SheetContent side="left" className="w-80 p-0">
-            <Sidebar />
+            <Sidebar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              setCurrentPage={setCurrentPage}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              filters={filters}
+              setFilters={setFilters}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
           </SheetContent>
         </Sheet>
 
         {/* Desktop Sidebar */}
         <div className="hidden lg:block w-64 min-h-screen">
-          <Sidebar />
+          <Sidebar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setCurrentPage={setCurrentPage}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            filters={filters}
+            setFilters={setFilters}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
         </div>
 
         {/* Main Content */}
@@ -775,7 +832,11 @@ const FreelancerFeed = () => {
                             readOnly
                             className="flex-1 bg-[hsl(0_0%_98%)]"
                           />
-                          <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full sm:w-auto"
+                          >
                             Copy
                           </Button>
                         </div>
@@ -807,15 +868,15 @@ const FreelancerFeed = () => {
                   if (totalPages <= 5) {
                     return page;
                   }
-                  
+
                   if (currentPage <= 3) {
                     return page;
                   }
-                  
+
                   if (currentPage >= totalPages - 2) {
                     return totalPages - 4 + i;
                   }
-                  
+
                   return currentPage - 2 + i;
                 }).map((page) => (
                   <Button

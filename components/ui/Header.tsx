@@ -36,7 +36,7 @@ const Header = () => {
     window.location.href = "/";
   };
 
-  interface SearchEvent extends React.FormEvent<HTMLFormElement> {}
+  type SearchEvent = React.FormEvent<HTMLFormElement>;
 
   const handleSearch = (e: SearchEvent) => {
     e.preventDefault();
@@ -74,23 +74,24 @@ const Header = () => {
                 priority
               />
             </Link>
-
-            <nav className="hidden md:flex gap-6 items-center ml-6">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => {
-                    const el = document.getElementById(item.id);
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className="text-gray-800 hover:text-[hsl(140_75%_20%)] transition-colors duration-150 font-medium text-sm uppercase tracking-wider"
-                >
-                  {item.name}
-                </button>
-              ))}
-            </nav>
+            {!isLoggedIn && (
+              <nav className="hidden md:flex gap-6 items-center ml-6">
+                {navItems.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const el = document.getElementById(item.id);
+                      if (el) {
+                        el.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="text-gray-800 hover:text-[hsl(140_75%_20%)] transition-colors duration-150 font-medium text-sm uppercase tracking-wider"
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </nav>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -156,7 +157,14 @@ const Header = () => {
                 </button>
                 <div
                   className="w-9 h-9 bg-[hsl(140_60%_85%)] rounded-full flex items-center justify-center cursor-pointer hover:bg-[hsl(140_75%_20%)/0.2] transition-colors duration-150"
-                  onClick={() => router.push("/freelancer/profile")}
+                  onClick={() => {
+                    const role = localStorage.getItem("userRole");
+                    if (role === "client") {
+                      router.push("/client/profile");
+                    } else {
+                      router.push("/freelancer/profile"); // default to freelancer
+                    }
+                  }}
                 >
                   <span className="text-[hsl(140_75%_20%)] font-semibold text-sm">
                     U
@@ -257,10 +265,7 @@ const Header = () => {
                     />
                   </button>
                   <button className="p-2 rounded-full hover:bg-[hsl(140_30%_95%)] transition-colors">
-                    <Bell
-                      size={18}
-                      className="text-[hsl(215.4_16.3%_46.9%)]"
-                    />
+                    <Bell size={18} className="text-[hsl(215.4_16.3%_46.9%)]" />
                   </button>
                 </div>
               </div>
