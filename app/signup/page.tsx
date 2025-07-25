@@ -13,19 +13,27 @@ const InnerSignUpPage = () => {
 
   useEffect(() => {
     const roleParam = searchParams.get("role");
+
     if (roleParam === "client" || roleParam === "freelancer") {
       setRole(roleParam);
       setIsValid(true);
     } else {
-      router.replace("/role-selection");
+      router.replace("/select-role");
     }
   }, [searchParams, router]);
 
   const handleSuccess = () => {
+    if (!role) return;
+
+    // ✅ Store login state and role
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userRole", role);
+
+    // ✅ Redirect based on role
     if (role === "freelancer") {
       router.push("/freelancer");
     } else {
-      router.push("/client");
+      window.location.href = "/";
     }
   };
 

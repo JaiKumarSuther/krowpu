@@ -36,15 +36,15 @@ const FreelancerProfilePage = () => {
   ];
 
   const preferences = [
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
-    "Wordpress",
+    "React",
+    "Next.js",
+    "Vue",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "Firebase",
+    "Tailwind CSS",
+    "GraphQL",
   ];
 
   const handleInputChange = (field: string, value: string) => {

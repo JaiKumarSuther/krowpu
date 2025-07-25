@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
@@ -13,6 +14,8 @@ const LoginForm = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
+
+  const router = useRouter();
 
   const validate = () => {
     const newErrors: { email?: string; password?: string } = {};
@@ -38,17 +41,21 @@ const LoginForm = () => {
     if (!validate()) return;
 
     // Simulate login success
-    localStorage.setItem("isLoggedIn", "true"); // ✅ Save flag
-    window.location.href = "/";
+    localStorage.setItem("isLoggedIn", "true");
+
+    // Get stored userRole
+    const userRole = localStorage.getItem("userRole");
+
+    router.push('/');
   };
 
   const inputClasses =
-    "w-full border border-[hsl(214.3_31.8%_91.4%)]  rounded-lg px-4 py-3 text-[hsl(222.2_84%_4.9%)]  bg-[hsl(0_0%_100%)]  placeholder:text-[hsl(215.4_16.3%_46.9%)]  focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)]  focus:border-transparent transition-all duration-200";
+    "w-full border border-[hsl(214.3_31.8%_91.4%)] rounded-lg px-4 py-3 text-[hsl(222.2_84%_4.9%)] bg-[hsl(0_0%_100%)] placeholder:text-[hsl(215.4_16.3%_46.9%)] focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)] focus:border-transparent transition-all duration-200";
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(210_40%_96.1%))]  py-12">
-      <div className="w-full max-w-[480px] bg-[hsl(0_`0%_100%)/0.8] backdrop-blur-sm rounded-xl shadow-[0_10px_30px_-10px_hsl(160_84%_39%/0.3)]   p-8">
-        <h1 className="text-2xl font-semibold text-[hsl(222.2_84%_4.9%)]  mb-8 text-center">
+    <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(210_40%_96.1%))] py-12">
+      <div className="w-full max-w-[480px] bg-[hsl(0_0%_100%)/0.8] backdrop-blur-sm rounded-xl shadow-[0_10px_30px_-10px_hsl(160_84%_39%/0.3)] p-8">
+        <h1 className="text-2xl font-semibold text-[hsl(222.2_84%_4.9%)] mb-8 text-center">
           Log in to KROWPU
         </h1>
 
@@ -61,7 +68,7 @@ const LoginForm = () => {
             <button
               key={idx}
               type="button"
-              className="flex-1 border text-black border-[hsl(214.3_31.8%_91.4%)]  rounded-lg px-4 py-3 text-sm font-medium bg-[hsl(0_0%_100%)]  hover:bg-[hsl(210_40%_96.1%)]  transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)] "
+              className="flex-1 border text-black border-[hsl(214.3_31.8%_91.4%)] rounded-lg px-4 py-3 text-sm font-medium bg-[hsl(0_0%_100%)] hover:bg-[hsl(210_40%_96.1%)] transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[hsl(160_84%_39%)]"
             >
               {btn.icon}
               <span className="hidden sm:inline">{btn.text}</span>
@@ -72,17 +79,15 @@ const LoginForm = () => {
 
         {/* Divider */}
         <div className="flex items-center w-full mb-6">
-          <div className="flex-1 h-px bg-[hsl(214.3_31.8%_91.4%)] "></div>
-          <span className="px-3 text-sm text-[hsl(215.4_16.3%_46.9%)] ">
-            Or
-          </span>
-          <div className="flex-1 h-px bg-[hsl(214.3_31.8%_91.4%)] "></div>
+          <div className="flex-1 h-px bg-[hsl(214.3_31.8%_91.4%)]"></div>
+          <span className="px-3 text-sm text-[hsl(215.4_16.3%_46.9%)]">Or</span>
+          <div className="flex-1 h-px bg-[hsl(214.3_31.8%_91.4%)]"></div>
         </div>
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)]  block mb-2">
+            <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)] block mb-2">
               Email
             </label>
             <input
@@ -95,14 +100,14 @@ const LoginForm = () => {
               className={inputClasses}
             />
             {errors.email && (
-              <p className="text-[hsl(0_84.2%_60.2%)]  text-xs mt-1">
+              <p className="text-[hsl(0_84.2%_60.2%)] text-xs mt-1">
                 {errors.email}
               </p>
             )}
           </div>
 
           <div className="relative">
-            <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)]  block mb-2">
+            <label className="text-sm font-medium text-[hsl(222.2_84%_4.9%)] block mb-2">
               Password
             </label>
             <input
@@ -117,12 +122,12 @@ const LoginForm = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-[38px] text-[hsl(215.4_16.3%_46.9%)]  hover:text-[hsl(222.2_84%_4.9%)]  transition-colors"
+              className="absolute right-3 top-[38px] text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] transition-colors"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
             {errors.password && (
-              <p className="text-[hsl(0_84.2%_60.2%)]  text-xs mt-1">
+              <p className="text-[hsl(0_84.2%_60.2%)] text-xs mt-1">
                 {errors.password}
               </p>
             )}
@@ -131,11 +136,11 @@ const LoginForm = () => {
           <GreenButton type="submit" label="Log In" className="w-full" />
         </form>
 
-        <p className="mt-6 text-sm text-[hsl(215.4_16.3%_46.9%)]  text-center">
+        <p className="mt-6 text-sm text-[hsl(215.4_16.3%_46.9%)] text-center">
           Don&apos;t have an account?{" "}
           <Link
             href="/select-role"
-            className="text-[hsl(160_84%_39%)]  font-medium hover:underline"
+            className="text-[hsl(160_84%_39%)] font-medium hover:underline"
           >
             Sign up
           </Link>
