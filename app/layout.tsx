@@ -20,7 +20,7 @@ export default function RootLayout({
         <title>Krowpu</title>
         <meta name="description" content="Krowpu - Freelance Platform Opposite of Upwork" />
       </head>
-      <body className={`${inter.variable} antialiased text-black`}>
+      <body className={`${inter.variable} antialiased text-black bg-white`}>
         <Header/>
         {children}
       </body>

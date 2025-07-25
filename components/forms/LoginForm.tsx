@@ -46,7 +46,7 @@ const LoginForm = () => {
     // // Get stored userRole
     // const userRole = localStorage.getItem("userRole");
 
-    router.push('/');
+    router.push("/");
   };
 
   const inputClasses =
@@ -122,7 +122,7 @@ const LoginForm = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-[38px] text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] transition-colors"
+              className="absolute right-3 top-8.5 translate-y-1/2 text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] transition-colors"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
