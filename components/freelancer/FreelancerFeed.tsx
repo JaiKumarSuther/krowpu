@@ -11,6 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -463,7 +464,26 @@ const FreelancerFeed = () => {
   };
 
   const handleSendProposal = () => {
-    // router.push(`/apply?jobId=${selectedJob?.id}`);
+    if (selectedJob) {
+      window.open(`/freelancer/send-proposal?jobId=${selectedJob.id}`, '_blank');
+    }
+    setIsJobDetailOpen(false);
+  };
+
+  const handleSaveJob = () => {
+    if (selectedJob) {
+      // In a real app, this would save to backend
+      const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+      const isAlreadySaved = savedJobs.some((job: { id: number }) => job.id === selectedJob.id);
+      
+      if (!isAlreadySaved) {
+        savedJobs.push(selectedJob);
+        localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+        alert('Job saved successfully!');
+      } else {
+        alert('Job is already saved!');
+      }
+    }
     setIsJobDetailOpen(false);
   };
 
@@ -629,7 +649,20 @@ const FreelancerFeed = () => {
           </div>
 
           {/* Jobs Grid */}
-          <div className="space-y-4 lg:space-y-6 mb-8">
+          <motion.div 
+            className="space-y-4 lg:space-y-6 mb-8"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+          >
             {currentJobs.map((job) => (
               <Sheet
                 key={job.id}
@@ -637,29 +670,69 @@ const FreelancerFeed = () => {
                 onOpenChange={setIsJobDetailOpen}
               >
                 <SheetTrigger asChild>
-                  <div
+                  <motion.div
                     onClick={() => handleJobClick(job)}
                     className="bg-[hsl(0_0%_100%)] rounded-lg p-4 lg:p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-[hsl(214.3_31.8%_91.4%)]"
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.5,
+                          ease: "easeOut"
+                        }
+                      }
+                    }}
+                    whileHover={{ 
+                      y: -5,
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
                       <span className="text-sm text-[hsl(215.4_16.3%_46.9%)]">
                         {job.postedTime}
                       </span>
                       <div className="flex items-center gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="p-1 h-auto"
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
                         >
-                          <Bookmark className="text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="p-1 h-auto"
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="p-1 h-auto"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+                              const isAlreadySaved = savedJobs.some((savedJob: { id: number }) => savedJob.id === job.id);
+                              
+                              if (!isAlreadySaved) {
+                                savedJobs.push(job);
+                                localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+                                alert('Job saved successfully!');
+                              } else {
+                                alert('Job is already saved!');
+                              }
+                            }}
+                          >
+                            <Bookmark className="text-[hsl(215.4_16.3%_46.9%)] hover:text-[hsl(222.2_84%_4.9%)] w-4 h-4" />
+                          </Button>
+                        </motion.div>
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
                         >
-                          <Heart className="text-[hsl(215.4_16.3%_46.9%)] hover:text-red-500 w-4 h-4" />
-                        </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="p-1 h-auto"
+                          >
+                            <Heart className="text-[hsl(215.4_16.3%_46.9%)] hover:text-red-500 w-4 h-4" />
+                          </Button>
+                        </motion.div>
                         <span className="text-sm text-[hsl(215.4_16.3%_46.9%)] flex items-center gap-1">
                           <MapPin className="w-3 h-3" />
                           {job.location}
@@ -699,7 +772,7 @@ const FreelancerFeed = () => {
                         </span>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 </SheetTrigger>
 
                 {/* Job Detail Side Panel */}
@@ -727,16 +800,26 @@ const FreelancerFeed = () => {
                         </div>
 
                         <div className="space-y-4 mb-6">
-                          <Button
-                            onClick={handleSendProposal}
-                            className="w-full"
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                           >
-                            Send Proposal
-                          </Button>
-                          <Button variant="outline" className="w-full">
-                            <Bookmark className="w-4 h-4 mr-2" />
-                            Save Job
-                          </Button>
+                            <Button
+                              onClick={handleSendProposal}
+                              className="w-full"
+                            >
+                              Send Proposal
+                            </Button>
+                          </motion.div>
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <Button variant="outline" className="w-full" onClick={handleSaveJob}>
+                              <Bookmark className="w-4 h-4 mr-2" />
+                              Save Job
+                            </Button>
+                          </motion.div>
                         </div>
 
                         <div className="text-sm text-[hsl(215.4_16.3%_46.9%)] mb-6">
@@ -839,21 +922,31 @@ const FreelancerFeed = () => {
                 </SheetContent>
               </Sheet>
             ))}
-          </div>
+          </motion.div>
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between gap-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="w-auto"
+            <motion.div 
+              className="flex items-center justify-between gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <ChevronLeft className="w-4 h-4" />
-                Previous
-              </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="w-auto"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </Button>
+              </motion.div>
 
               <div className="flex gap-1 overflow-x-auto">
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
@@ -872,29 +965,39 @@ const FreelancerFeed = () => {
 
                   return currentPage - 2 + i;
                 }).map((page) => (
-                  <Button
+                  <motion.div
                     key={page}
-                    variant={currentPage === page ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => handlePageChange(page)}
-                    className="min-w-[40px]"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    {page}
-                  </Button>
+                    <Button
+                      variant={currentPage === page ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handlePageChange(page)}
+                      className="min-w-[40px]"
+                    >
+                      {page}
+                    </Button>
+                  </motion.div>
                 ))}
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="w-auto"
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Next
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="w-auto"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </motion.div>
+            </motion.div>
           )}
         </div>
       </div>

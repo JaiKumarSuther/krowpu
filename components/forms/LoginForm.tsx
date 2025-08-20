@@ -7,6 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import GreenButton from "@/components/buttons/GreenButton";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,8 +15,10 @@ const LoginForm = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const { login } = useAuth();
 
   const validate = () => {
     const newErrors: { email?: string; password?: string } = {};
@@ -36,17 +39,24 @@ const LoginForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Simulate login success
-    localStorage.setItem("isLoggedIn", "true");
-
-    // // Get stored userRole
-    // const userRole = localStorage.getItem("userRole");
-
-    router.push("/");
+    setIsLoading(true);
+    
+    try {
+      const success = await login(formData.email, formData.password);
+      if (success) {
+        router.push("/");
+      } else {
+        setErrors({ password: "Invalid email or password" });
+      }
+    } catch {
+      setErrors({ password: "Login failed. Please try again." });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const inputClasses =
@@ -133,7 +143,12 @@ const LoginForm = () => {
             )}
           </div>
 
-          <GreenButton type="submit" label="Log In" className="w-full" />
+          <GreenButton 
+            type="submit" 
+            label={isLoading ? "Logging in..." : "Log In"} 
+            className="w-full"
+            disabled={isLoading}
+          />
         </form>
 
         <p className="mt-6 text-sm text-[hsl(215.4_16.3%_46.9%)] text-center">

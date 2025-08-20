@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import StepOnePreferences from "@/components/freelancer/StepOnePreferences";
 import StepTwoBudget from "@/components/freelancer/StepTwoBudget";
 import StepNavigator from "@/components/ui/StepNavigator";
 import StepProgressBar from "@/components/ui/StepProgressBar";
-import { useRouter } from "next/navigation";
 
 export default function Freelancer() {
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, updateUser } = useAuth();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     skills: [] as string[],
@@ -57,14 +61,40 @@ export default function Freelancer() {
     setErrors(updatedErrors);
     return valid;
   };
-  const router = useRouter();
+  // Check if user profile is complete and redirect to dashboard
+  useEffect(() => {
+    const checkProfileStatus = async () => {
+      if (user) {
+        // If user profile is complete, redirect to dashboard
+        if (user.profileComplete) {
+          router.push('/freelancer/dashboard');
+          return;
+        }
+        // If user role is not freelancer, redirect to appropriate page
+        if (user.role !== 'freelancer') {
+          router.push('/client');
+          return;
+        }
+      }
+      setIsLoading(false);
+    };
 
-  const handleNext = () => {
+    checkProfileStatus();
+  }, [user, router]);
+
+  const handleNext = async () => {
     if (step === 1 && validateStepOne()) {
       setStep(2);
     } else if (step === 2 && validateStepTwo()) {
       console.log("✅ Submitted Data:", formData);
-      router.push("/"); // Navigate to homepage or dashboard
+      
+      // Update user profile as complete
+      if (user) {
+        updateUser({ profileComplete: true });
+      }
+      
+      // Navigate to dashboard
+      router.push("/freelancer/dashboard");
     }
   };
 
@@ -102,6 +132,18 @@ export default function Freelancer() {
       paymentType: type,
     }));
   };
+
+  // Show loading while checking profile status
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted to-primary-light relative">

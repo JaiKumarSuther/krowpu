@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import Step1 from "@/components/client/Step1";
 import Step2 from "@/components/client/Step2";
 import Step3 from "@/components/client/Step3";
@@ -8,26 +10,66 @@ import Step4 from "@/components/client/Step4";
 import Step5 from "@/components/client/Step5";
 import StepNavigator from "@/components/ui/StepNavigator";
 import StepProgressBar from "@/components/ui/StepProgressBar";
-import { useRouter } from "next/navigation";
 
 const steps = [Step1, Step2, Step3, Step4, Step5];
 
 export default function ClientEventPost() {
   const [step, setStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const CurrentStep = steps[step];
-
+  const { user, updateUser } = useAuth();
   const router = useRouter();
+
+  // Check if user profile is complete and redirect to dashboard
+  useEffect(() => {
+    const checkProfileStatus = async () => {
+      if (user) {
+        // If user profile is complete, redirect to dashboard
+        if (user.profileComplete) {
+          router.push('/client/dashboard');
+          return;
+        }
+        // If user role is not client, redirect to appropriate page
+        if (user.role !== 'client') {
+          router.push('/freelancer');
+          return;
+        }
+      }
+      setIsLoading(false);
+    };
+
+    checkProfileStatus();
+  }, [user, router]);
 
   const handleNext = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
       console.log("Submitting form... 🚀");
-      router.push("/"); // Final redirect from inside top-level component
+      
+      // Update user profile as complete
+      if (user) {
+        updateUser({ profileComplete: true });
+      }
+      
+      // Navigate to dashboard
+      router.push("/client/dashboard");
     }
   };
 
   const handleBack = () => step > 0 && setStep(step - 1);
+
+  // Show loading while checking profile status
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[hsl(0_0%_99%)]  via-[hsl(220_14%_96%)] to-[hsl(160_60%_95%)] relative">

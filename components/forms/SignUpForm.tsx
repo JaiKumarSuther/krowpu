@@ -8,6 +8,7 @@ import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeOff } from "lucide-react";
 import GreenButton from "@/components/buttons/GreenButton";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface SignUpFormProps {
   role: "client" | "freelancer";
@@ -17,6 +18,7 @@ interface SignUpFormProps {
 const SignUpForm = ({ role, onSuccess }: SignUpFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [openModal, setOpenModal] = useState<"terms" | "user" | "privacy" | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -28,6 +30,7 @@ const SignUpForm = ({ role, onSuccess }: SignUpFormProps) => {
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const { signup } = useAuth();
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -49,16 +52,30 @@ const SignUpForm = ({ role, onSuccess }: SignUpFormProps) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
-    // ✅ Save to localStorage
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userRole", role);
-
-    // ✅ Continue to parent redirect handler
-    onSuccess();
+    setIsLoading(true);
+    
+    try {
+      const success = await signup(
+        formData.email, 
+        formData.password, 
+        `${formData.firstName} ${formData.lastName}`, 
+        role
+      );
+      
+      if (success) {
+        onSuccess();
+      } else {
+        setErrors({ general: "Signup failed. Please try again." });
+      }
+    } catch {
+      setErrors({ general: "Signup failed. Please try again." });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (field: string, value: string | boolean) => {
@@ -435,7 +452,18 @@ const SignUpForm = ({ role, onSuccess }: SignUpFormProps) => {
             </p>
           )}
 
-          <GreenButton type="submit" label="Create an account" className="w-full" />
+          {errors.general && (
+            <p className="text-[hsl(0_84.2%_60.2%)] text-sm text-center">
+              {errors.general}
+            </p>
+          )}
+          
+          <GreenButton 
+            type="submit" 
+            label={isLoading ? "Creating account..." : "Create an account"} 
+            className="w-full"
+            disabled={isLoading}
+          />
         </form>
 
         <p className="mt-6 text-sm text-[hsl(215.4_16.3%_46.9%)] text-center">

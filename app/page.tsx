@@ -1,30 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ClientFeed from "@/components/client/ClientFeed";
+import { useRouter } from "next/navigation";
+
 import FreelancerFeed from "@/components/freelancer/FreelancerFeed";
 import Dashboard from "@/components/Dashboard";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Page() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState<"client" | "freelancer" | null>(null);
+  const { isLoggedIn, user } = useAuth();
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const storedRole = localStorage.getItem("userRole"); // must be set on login/signup
-
-    setIsLoggedIn(loggedIn);
-    setRole(storedRole === "client" || storedRole === "freelancer" ? storedRole : null);
-    setLoading(false);
+    // Small delay to ensure AuthContext is initialized
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn && user?.role === "client") {
+      router.push('/client/dashboard');
+    }
+  }, [isLoggedIn, user?.role, router]);
 
   if (loading) return <div className="p-4">Loading...</div>;
 
   if (!isLoggedIn) return <Dashboard />;
 
-  if (role === "client") return <ClientFeed />;
-  if (role === "freelancer") return <FreelancerFeed />;
+  if (user?.role === "client") {
+    return <div>Redirecting to client dashboard...</div>;
+  }
+  if (user?.role === "freelancer") return <FreelancerFeed />;
 
   return <Dashboard />;
 }

@@ -5,59 +5,142 @@ import Image from "next/image";
 import GreenButton from "@/components/buttons/GreenButton";
 import OutlinedGrayButton from "@/components/buttons/OutlinedGrayButton";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   const router = useRouter();
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const
+      }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut" as const
+      }
+    }
+  };
+
   return (
-    <section className="w-full bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(140_20%_98%))]  py-16 px-6 md:px-12 min-h-[600px]">
+    <motion.section 
+      className="w-full bg-[linear-gradient(180deg,hsl(0_0%_100%),hsl(140_20%_98%))]  py-16 px-6 md:px-12 min-h-[600px]"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between lg:gap-12">
         {/* Left Side */}
-        <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold italic text-[hsl(140_75%_20%)]  leading-tight mb-6">
+        <motion.div 
+          className="flex-1 text-center lg:text-left"
+          variants={itemVariants}
+        >
+          <motion.h1 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold italic text-[hsl(140_75%_20%)]  leading-tight mb-6"
+            variants={itemVariants}
+          >
             Find the perfect <br />
-            <span className="bg-[linear-gradient(135deg,hsl(140_75%_20%),hsl(140_70%_35%))]  bg-clip-text text-transparent">
+            <motion.span 
+              className="bg-[linear-gradient(135deg,hsl(140_75%_20%),hsl(140_70%_35%))]  bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
               freelancer
-            </span>{" "}
+            </motion.span>{" "}
             in seconds
-          </h1>
+          </motion.h1>
 
-          <p className="text-[hsl(215.4_16.3%_46.9%)]  text-lg md:text-xl mb-8 max-w-2xl">
+          <motion.p 
+            className="text-[hsl(215.4_16.3%_46.9%)]  text-lg md:text-xl mb-8 max-w-2xl"
+            variants={itemVariants}
+          >
             Match with top talent through our revolutionary swipe-based
             platform. Connect, collaborate, and create amazing projects
             together.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start mb-12">
-            <GreenButton
-              className="rounded-full min-w-[180px] group"
-              onClick={() => {
-                router.push("/select-role");
-              }}
+          <motion.div 
+            className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start mb-12"
+            variants={itemVariants}
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <span className="flex items-center justify-center">
-                Get Started
-                <ArrowRight
-                  size={18}
-                  className="ml-2 group-hover:translate-x-1 transition-transform duration-150"
-                />
-              </span>
-            </GreenButton>
+              <GreenButton
+                className="rounded-full min-w-[180px] group"
+                onClick={() => {
+                  router.push("/select-role");
+                }}
+              >
+                <span className="flex items-center justify-center">
+                  Get Started
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ArrowRight
+                      size={18}
+                      className="ml-2"
+                    />
+                  </motion.div>
+                </span>
+              </GreenButton>
+            </motion.div>
 
-            <OutlinedGrayButton
-              className="rounded-full min-w-[180px]"
-              onClick={() => {
-              }}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Play size={18} className="mr-2" />
-              Learn how to hire
-            </OutlinedGrayButton>
-          </div>
-        </div>
+              <OutlinedGrayButton
+                className="rounded-full min-w-[180px]"
+                onClick={() => {
+                }}
+              >
+                <Play size={18} className="mr-2" />
+                Learn how to hire
+              </OutlinedGrayButton>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Right Side */}
-        <div className="flex-1 flex justify-center lg:justify-end">
-          <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-[450px] lg:h-[450px] rounded-full overflow-hidden">
+        <motion.div 
+          className="flex-1 flex justify-center lg:justify-end"
+          variants={imageVariants}
+        >
+          <motion.div 
+            className="relative w-72 h-72 md:w-80 md:h-80 lg:w-[450px] lg:h-[450px] rounded-full overflow-hidden"
+            whileHover={{ 
+              scale: 1.05,
+              rotate: 5,
+              transition: { duration: 0.3 }
+            }}
+          >
             <Image
               src="/images/freelancer-graphic.png"
               alt="Hero Image"
@@ -65,10 +148,10 @@ const HeroSection = () => {
               className="object-cover"
               priority
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
